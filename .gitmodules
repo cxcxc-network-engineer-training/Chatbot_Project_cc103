@@ -1,0 +1,6 @@
+[submodule "Chatbot_Dev_cc103"]
+	path = Chatbot_Dev_cc103
+	url = https://github.com/iii-cutting-edge-tech-lab/Chatbot_Dev_cc103.git
+[submodule "Chatbot_Line_cc103"]
+	path = Chatbot_Line_cc103
+	url = https://github.com/iii-cutting-edge-tech-lab/Chatbot_Line_cc103.git
