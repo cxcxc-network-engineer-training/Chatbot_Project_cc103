@@ -2,7 +2,7 @@ version: '3'
 services:
   db:
     build: 
-      context: ./Chatbot_Dev/dockerfile
+      context: ./Chatbot_Dev_cc103/dockerfile
       dockerfile: dockerfile-mysql
     container_name: chatbot_db
     restart: always
@@ -11,40 +11,42 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=iii
     volumes:
-      - ./Chatbot_Dev/mysql_data:/var/lib/mysql
-      - ./Chatbot_Dev/mysql_init:/docker-entrypoint-initdb.d/
+      - ./Chatbot_Dev_cc103/mysql_data:/var/lib/mysql
+      - ./Chatbot_Dev_cc103/mysql_init:/docker-entrypoint-initdb.d/
 
   api:
     build: 
-      context: ./Chatbot_Dev/dockerfile
+      context: ./Chatbot_Dev_cc103/dockerfile
       dockerfile: dockerfile-api
     container_name: chatbot_api
     user: root
     environment:
       - GRANT_SUDO=yes
     ports:
+      - "8880:8888"
       - "5001:5000"
     depends_on:
       - db
     links:
       - db
     volumes:
-      - ./Chatbot_Dev/code:/home/jovyan/work/
-    command: python /home/jovyan/work/code.py
+      - ./Chatbot_Dev_cc103/code:/home/jovyan/work/
+#    command: python /home/jovyan/work/code.py
+    command: start-notebook.sh --NotebookApp.token=''
 
   redis:
     build: 
-      context: ./Chatbot_Line/dockerfile
+      context: ./Chatbot_Line_cc103/dockerfile
       dockerfile: dockerfile-redis
     container_name: chatbot_redis
     ports:
      - "6379:6379"
     volumes:
-     - ./Chatbot_Line/redis/data:/data
-#     - ./Chatbot_Line/redis/redis.config:/usr/local/etc/redis/redis.conf
+     - ./Chatbot_Line_cc103/redis/data:/data
+#    - ./Chatbot_Line/redis/redis.config:/usr/local/etc/redis/redis.conf
   jupyter-tutorial:
     build: 
-      context: ./Chatbot_Line/dockerfile
+      context: ./Chatbot_Line_cc103/dockerfile
       dockerfile: dockerfile-jupyter
     container_name: chatbot_jupyter
     depends_on: 
@@ -53,14 +55,14 @@ services:
     ports:
       - "8888:8888"
       - "5000:5000"
-#    command: start-notebook.sh --NotebookApp.token=''
-   command: python /home/jovyan/work/test.py
+    command: start-notebook.sh --NotebookApp.token=''
+#    command: python /home/jovyan/work/test.py
     volumes:
-     - ./Chatbot_Line/code:/home/jovyan/work
+     - ./Chatbot_Line_cc103/code:/home/jovyan/work
 
   ngrok-external-dns:
     build: 
-      context: ./Chatbot_Line/dockerfile
+      context: ./Chatbot_Line_cc103/dockerfile
       dockerfile: dockerfile-ngrok
     container_name: chatbot_ngrok
     depends_on: 
