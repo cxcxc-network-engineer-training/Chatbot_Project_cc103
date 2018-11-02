@@ -31,8 +31,8 @@ services:
       - db
     volumes:
       - ./Chatbot_Dev_cc103/code:/home/jovyan/work/
-    command: python /home/jovyan/work/code.py
-#    command: start-notebook.sh --NotebookApp.token=''
+#    command: python /home/jovyan/work/code.py
+    command: start-notebook.sh --NotebookApp.token=''
 
   redis:
     build: 
@@ -48,7 +48,7 @@ services:
     build: 
       context: ./Chatbot_Line_cc103/dockerfile
       dockerfile: dockerfile-jupyter
-    container_name: chatbot_jupyter
+    container_name: chatbot_line
     depends_on: 
       - api
       - redis
@@ -56,8 +56,8 @@ services:
     ports:
       - "8888:8888"
       - "5000:5000"
-#    command: start-notebook.sh --NotebookApp.token=''
-    command: python /home/jovyan/work/test.py
+    command: start-notebook.sh --NotebookApp.token=''
+#    command: python /home/jovyan/work/test.py
     volumes:
       - ./Chatbot_Line_cc103/code:/home/jovyan/work
 
@@ -70,14 +70,14 @@ services:
       - jupyter-tutorial
     ports:
       - "4040:4040"
-    command: ngrok http chatbot_jupyter:5000
+    command: ngrok http chatbot_line:5000
 
 
 #  jupyter-tutorial:
 #    build:
 #      context: ./Chatbot_Line_cc103/dockerfile
 #      dockerfile: dockerfile-jupyter
-#    container_name: chatbot_jupyter
+#    container_name: chatbot_line
 #    depends_on:
 #      - api
 #      - redis
