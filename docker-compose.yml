@@ -40,10 +40,10 @@ services:
       dockerfile: dockerfile-redis
     container_name: chatbot_redis
     ports:
-     - "6379:6379"
+      - "6379:6379"
     volumes:
-     - ./Chatbot_Line_cc103/redis/data:/data
-#    - ./Chatbot_Line/redis/redis.config:/usr/local/etc/redis/redis.conf
+      - ./Chatbot_Line_cc103/redis/data:/data
+      - ./Chatbot_Line/redis/redis.config:/usr/local/etc/redis/redis.conf
   jupyter-tutorial:
     build: 
       context: ./Chatbot_Line_cc103/dockerfile
@@ -52,14 +52,14 @@ services:
     depends_on: 
       - api
       - redis
-      - ngrok-external-dns
+#      - ngrok-external-dns
     ports:
       - "8888:8888"
       - "5000:5000"
 #    command: start-notebook.sh --NotebookApp.token=''
     command: python /home/jovyan/work/test.py
     volumes:
-     - ./Chatbot_Line_cc103/code:/home/jovyan/work
+      - ./Chatbot_Line_cc103/code:/home/jovyan/work
 
   ngrok-external-dns:
     build: 
@@ -71,4 +71,23 @@ services:
     ports:
       - "4040:4040"
     command: ngrok http chatbot_jupyter:5000
+
+
+#  jupyter-tutorial:
+#    build:
+#      context: ./Chatbot_Line_cc103/dockerfile
+#      dockerfile: dockerfile-jupyter
+#    container_name: chatbot_jupyter
+#    depends_on:
+#      - api
+#      - redis
+#      - ngrok-external-dns
+#    ports:
+#      - "8888:8888"
+#      - "5000:5000"
+#    command: start-notebook.sh --NotebookApp.token=''
+#    command: python /home/jovyan/work/test.py
+#    volumes:
+#     - ./Chatbot_Line_cc103/code:/home/jovyan/work
+
 
