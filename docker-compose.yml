@@ -1,9 +1,7 @@
 version: '3'
 services:
   db:
-    build: 
-      context: ./Chatbot_Dev_cc103/dockerfile
-      dockerfile: dockerfile-mysql
+    image: mysql:5.7 
     container_name: chatbot_db
     restart: always
     ports:
@@ -24,7 +22,7 @@ services:
       - GRANT_SUDO=yes
     ports:
       - "8880:8888"
-      - "5001:5000"
+ #     - "5001:5000"
     depends_on:
       - db
     links:
@@ -35,9 +33,7 @@ services:
     command: start-notebook.sh --NotebookApp.token=''
 
   redis:
-    build: 
-      context: ./Chatbot_Line_cc103/dockerfile
-      dockerfile: dockerfile-redis
+    image: redis:4.0.11
     container_name: chatbot_redis
     ports:
       - "6379:6379"
@@ -55,7 +51,7 @@ services:
 #      - ngrok-external-dns
     ports:
       - "8888:8888"
-      - "5000:5000"
+      - "80:5000"
     command: start-notebook.sh --NotebookApp.token=''
 #    command: python /home/jovyan/work/test.py
     volumes:
