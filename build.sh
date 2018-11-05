@@ -14,16 +14,16 @@ docker build -t $USERNAME/$IAMGE3:latest -f Chatbot_Dev_cc103/dockerfile/dockerf
 
 
 
-jupyter_ver=`cat jupyter_ver`
+jupyter_ver=`cat version/jupyter_ver`
 echo "jupyter_ver: $jupyter_ver"
 docker tag $USERNAME/$IAMGE1:latest $USERNAME/$IAMGE2:$jupyter_ver
-ngrok_ver=`cat ngrok_ver`
+ngrok_ver=`cat version/ngrok_ver`
 echo "ngrok_ver: $ngrok_ver"
 docker tag $USERNAME/$IAMGE2:latest $USERNAME/$IAMGE3:$ngrok_ver
-api_ver=`cat api_ver`
+api_ver=`cat version/api_ver`
 echo "redis_ver: $api_ver"
 docker tag $USERNAME/$IAMGE3:latest $USERNAME/$IAMGE4:$api_ver
-mysql_ver=`cat mysql_ver`
+mysql_ver=`cat version/mysql_ver`
 
 docker push $USERNAME/$IAMGE1:$jupyter_ver
 docker push $USERNAME/$IAMGE2:$ngrok_ver
