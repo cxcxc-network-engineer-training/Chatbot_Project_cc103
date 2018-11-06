@@ -25,10 +25,10 @@ docker tag $USERNAME/$IAMGE2:latest $USERNAME/$IAMGE2:$ngrok_ver
 api_ver=`cat version/api_ver`
 echo "redis_ver: $api_ver"
 docker tag $USERNAME/$IAMGE3:latest $USERNAME/$IAMGE3:$api_ver
-mysql_ver=`cat mysql_ver`
+mysql_ver=`cat version/mysql_ver`
 echo "mysql_ver: $mysql_ver"
 docker tag $IAMGE4:latest $USERNAME/$IAMGE5:$mysql_ver
-redis_ver=`cat redis_ver`
+redis_ver=`cat version/redis_ver`
 echo "redis_ver: $redis_ver"
 docker tag $IAMGE5:latest $USERNAME/$IAMGE1:$redis_ver
 
