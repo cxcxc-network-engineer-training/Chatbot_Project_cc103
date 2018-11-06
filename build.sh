@@ -6,14 +6,10 @@ USERNAME=204065533127.dkr.ecr.ap-northeast-1.amazonaws.com
 IAMGE1=jupyter
 IAMGE2=ngrok
 IAMGE3=api
-IAMGE4=mysql
-IAMGE5=redis
 
 docker build -t $USERNAME/$IAMGE1:latest -f Chatbot_Line_cc103/dockerfile/dockerfile-jupyter2 Chatbot_Line_cc103/dockerfile/
 docker build -t $USERNAME/$IAMGE2:latest -f Chatbot_Line_cc103/dockerfile/dockerfile-ngrok Chatbot_Line_cc103/dockerfile/
 docker build -t $USERNAME/$IAMGE3:latest -f Chatbot_Dev_cc103/dockerfile/dockerfile-api Chatbot_Dev_cc103/dockerfile/
-docker pull $IAMGE4
-docker pull $IAMGE5
 
 
 jupyter_ver=`cat version/jupyter_ver`
@@ -25,17 +21,9 @@ docker tag $USERNAME/$IAMGE2:latest $USERNAME/$IAMGE2:$ngrok_ver
 api_ver=`cat version/api_ver`
 echo "redis_ver: $api_ver"
 docker tag $USERNAME/$IAMGE3:latest $USERNAME/$IAMGE3:$api_ver
-mysql_ver=`cat version/mysql_ver`
-echo "mysql_ver: $mysql_ver"
-docker tag $IAMGE4:latest $USERNAME/$IAMGE5:$mysql_ver
-redis_ver=`cat version/redis_ver`
-echo "redis_ver: $redis_ver"
-docker tag $IAMGE5:latest $USERNAME/$IAMGE1:$redis_ver
 
 
 
 docker push $USERNAME/$IAMGE1:$jupyter_ver
 docker push $USERNAME/$IAMGE2:$ngrok_ver
 docker push $USERNAME/$IAMGE3:$api_ver
-docker push $USERNAME/$IAMGE5:$redis_ver
-docker push $USERNAME/$IAMGE4:$mysql_ver

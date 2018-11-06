@@ -17,5 +17,3 @@ phases:
       - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/jupyter:latest
       - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/ngrok:latest
       - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/api:latest
-      - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/mysql:latest
-      - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/redis:latest
