@@ -13,9 +13,7 @@ services:
       - ./Chatbot_Dev_cc103/mysql_init:/docker-entrypoint-initdb.d/
 
   api:
-    build: 
-      context: ./Chatbot_Dev_cc103/dockerfile
-      dockerfile: dockerfile-api2
+    image: 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/api:latest
     container_name: chatbot_api
     user: root
     environment:
@@ -41,9 +39,7 @@ services:
       - ./Chatbot_Line_cc103/redis/data:/data
       - ./Chatbot_Line/redis/redis.config:/usr/local/etc/redis/redis.conf
   jupyter-tutorial:
-    build: 
-      context: ./Chatbot_Line_cc103/dockerfile
-      dockerfile: dockerfile-jupyter2
+    image: 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/jupyter:latest
     container_name: chatbot_line
     depends_on: 
       - api
@@ -58,32 +54,12 @@ services:
       - ./Chatbot_Line_cc103/code:/home/jovyan/work
 
   ngrok-external-dns:
-    build: 
-      context: ./Chatbot_Line_cc103/dockerfile
-      dockerfile: dockerfile-ngrok
+    image: 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/ngrok:latest
     container_name: chatbot_ngrok
     depends_on: 
       - jupyter-tutorial
     ports:
       - "4040:4040"
     command: ngrok http chatbot_line:5000
-
-
-#  jupyter-tutorial:
-#    build:
-#      context: ./Chatbot_Line_cc103/dockerfile
-#      dockerfile: dockerfile-jupyter
-#    container_name: chatbot_line
-#    depends_on:
-#      - api
-#      - redis
-#      - ngrok-external-dns
-#    ports:
-#      - "8888:8888"
-#      - "5000:5000"
-#    command: start-notebook.sh --NotebookApp.token=''
-#    command: python /home/jovyan/work/test.py
-#    volumes:
-#     - ./Chatbot_Line_cc103/code:/home/jovyan/work
 
 
