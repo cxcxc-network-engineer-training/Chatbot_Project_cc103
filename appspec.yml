@@ -1,0 +1,27 @@
+
+
+version: 0.0
+os: linux
+files:
+  - source: / 
+    destination: /home/ec2-user/deploy
+permissions:
+  - object: /home/ec2-user/deploy
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+    mode: 644
+    type:
+hooks:
+  BeforeInstall:
+    - location: stop_service.sh
+      timeout: 30
+      runas: ec2-user
+  AfterInstall:
+    - location: build_service.sh
+      timeout: 120
+      runas: ec2-user
+  ApplicationStart:
+    - location: start_service.sh
+      timeout: 120
+      runas: ec2-user
