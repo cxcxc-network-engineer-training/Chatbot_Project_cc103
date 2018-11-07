@@ -15,7 +15,7 @@ services:
   api:
     build: 
       context: ./Chatbot_Dev_cc103/dockerfile
-      dockerfile: dockerfile-api
+      dockerfile: dockerfile-api2
     container_name: chatbot_api
     user: root
     environment:
