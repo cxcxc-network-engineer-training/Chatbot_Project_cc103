@@ -11,7 +11,7 @@ for ((i=0;i<3;i++))
 do  
   sleep 5
   if [ $containerNum == 6 ];then
-    echo "service deploy success !!" > /home/ec2-user/lineChatbot_cc103/updateTime
+    echo "service deploy success !!"
     break
 fi
   if [ $i == 2 ];then
@@ -20,6 +20,6 @@ fi
   docker rmi mysql:latest
   docker rmi 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/jupyter:latest
   docker rmi 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/ngrok:latest
-  echo "service deploy fail" > /home/ec2-user/lineChatbot_cc103/updateTime
+  echo "service deploy fail"
 fi
 done
