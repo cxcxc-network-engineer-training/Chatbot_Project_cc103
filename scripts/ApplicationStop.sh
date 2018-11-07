@@ -1,8 +1,5 @@
 
 #!/bin/bash
-touch /home/ec2-user/container_log
-docker ps > /home/ec2-user/container_log
-containerNum=cat /home/ec2-user/container_log|wc -l
 if [ $containerNum  > 1 ];then
 echo "stop service container "
 cd /home/ec2-user/deploy
