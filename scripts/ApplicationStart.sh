@@ -1,11 +1,5 @@
 
 #!/bin/bash
-
-sudo yum install -y awslogs
-#sed -i 's/us-east-1/ap-northeast-1/g' /etc/awslogs/awscli.conf
-#sed -i 's/\/var\/log\/messages/\/home\/ec2-user\/Chatbot_Project\/Chatbot_Dev\/code\/my.log/g' /etc/awslogs/awslogs.conf
-sudo service awslogs start
-
 cd /home/ec2-user/deploy
 echo "Running service container "
 docker-compose up -d
@@ -29,4 +23,3 @@ fi
   echo "service deploy fail" > /home/ec2-user/lineChatbot_cc103/updateTime
 fi
 done
-
