@@ -37,7 +37,7 @@ services:
       - "6379:6379"
     volumes:
       - ./Chatbot_Line_cc103/redis/data:/data
-      - ./Chatbot_Line/redis/redis.config:/usr/local/etc/redis/redis.conf
+      - ./Chatbot_Line_cc103/redis/redis.config:/usr/local/etc/redis/redis.conf
   jupyter-tutorial:
     image: 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/jupyter:latest
     container_name: chatbot_line
