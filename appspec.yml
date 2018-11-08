@@ -1,8 +1,5 @@
 version: 0.0
 os: linux
-files:
-  - source: /
-    destination: /home/ec2-user/deploy
 hooks:
   BeforeInstall:
     - location: scripts/BeforeInstall.sh
@@ -16,3 +13,4 @@ hooks:
   ApplicationStop:
     - location: scripts/ApplicationStop.sh
       timeout: 3000
+      
