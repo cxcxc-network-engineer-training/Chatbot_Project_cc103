@@ -17,3 +17,7 @@ docker tag $USERNAME/$IAMGE2:latest $USERNAME/$IAMGE2:$ngrok_ver
 api_ver=`cat version/api_ver`
 echo "redis_ver: $api_ver"
 docker tag $USERNAME/$IAMGE3:latest $USERNAME/$IAMGE3:$api_ver
+
+docker push $USERNAME/$IAMGE1:$jupyter_ver
+docker push $USERNAME/$IAMGE2:$ngrok_ver
+docker push $USERNAME/$IAMGE3:$api_ver
