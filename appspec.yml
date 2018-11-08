@@ -3,27 +3,16 @@ os: linux
 files:
   - source: /
     destination: /home/ec2-user/deploy
-permissions:
-  - object: /home/ec2-user/deploy/scripts
-    pattern: "**"
-    owner: ec2-user
-    group: ec2-user
-    mode: 755
-    type:
 hooks:
   BeforeInstall:
     - location: scripts/BeforeInstall.sh
       timeout: 3000
-      runas: ec2-user
   AfterInstall:
     - location: scripts/AfterInstall.sh
       timeout: 3000
-      runas: ec2-user
   ApplicationStart:
     - location: scripts/ApplicationStart.sh
       timeout: 3000
-      runas: ec2-user
   ApplicationStop:
     - location: scripts/ApplicationStop.sh
       timeout: 3600
-      runas: ec2-user

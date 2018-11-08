@@ -1,7 +1,7 @@
 version: '3'
 services:
   db:
-    image: mysql:5.7 
+    image: mysql:latest 
     container_name: chatbot_db
     restart: always
     ports:
@@ -31,7 +31,7 @@ services:
     command: start-notebook.sh --NotebookApp.token=''
 
   redis:
-    image: redis:4.0.11
+    image: redis:latest
     container_name: chatbot_redis
     ports:
       - "6379:6379"
