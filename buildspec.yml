@@ -8,7 +8,7 @@ phases:
     commands:
     - echo Build started on date
     - echo Building the Docker image...
-    - sh build.sh
+    - sh scripts/build.sh
   post_build:
     commands:
     - echo Build completed on date
