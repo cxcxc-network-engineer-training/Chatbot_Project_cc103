@@ -11,9 +11,9 @@ phases:
     commands:
     - echo Build started on date
     - echo Building the Docker image...
-    - docker build -t $URI/jupyter:latest Chatbot_Line_cc103/dockerfile/dockerfile-jupyter2
-    - docker build -t $URI/ngrok:latest Chatbot_Line_cc103/dockerfile/dockerfile-ngrok
-    - docker build -t $URI/api:latest Chatbot_Dev_cc103/dockerfile/dockerfile-api
+    - docker build -t $URI/jupyter:latest -f Chatbot_Line_cc103/dockerfile/dockerfile-jupyter2 Chatbot_Line_cc103/dockerfile/
+    - docker build -t $URI/ngrok:latest -f Chatbot_Line_cc103/dockerfile/dockerfile-ngrok Chatbot_Line_cc103/dockerfile/
+    - docker build -t $URI/api:latest -f Chatbot_Dev_cc103/dockerfile/dockerfile-api Chatbot_Dev_cc103/dockerfile/
     - docker tag $URI/jupyter:latest $URI/jupyter:$TAG
     - docker tag $URI/ngrok:latest $URI/ngrok:$TAG
     - docker tag $URI/api:latest $URI/api:$TAG  
