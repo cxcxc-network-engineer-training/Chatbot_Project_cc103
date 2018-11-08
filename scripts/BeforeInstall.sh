@@ -1,4 +1,3 @@
-
 #!/bin/bash
 echo "Logging in to AWS ECR and pull images"
 $(aws ecr get-login --no-include-email --region ap-northeast-1)

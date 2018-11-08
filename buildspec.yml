@@ -1,19 +1,21 @@
 version: 0.2
-
 phases:
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --no-include-email --registry-ids 204065533127 --region ap-northeast-1)
+    - echo Logging in to Amazon ECR...
+    - $(aws ecr get-login --no-include-email --registry-ids 204065533127 --region ap-northeast-1)
   build:
     commands:
-      - echo Build started on `date`
-      - echo Building the Docker image...
-      - sh scripts/build.sh
+    - echo Build started on date
+    - echo Building the Docker image...
+    - sh build.sh
   post_build:
     commands:
-      - echo Build completed on `date`
-      - echo Pushing the Docker image...
-      - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/jupyter:latest
-      - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/ngrok:latest
-      - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/api:latest
+    - echo Build completed on date
+    - echo Pushing the Docker image...
+    - docker push $USERNAME/$IAMGE1:$jupyter_ver
+    - docker push $USERNAME/$IAMGE2:$ngrok_ver
+    - docker push $USERNAME/$IAMGE3:$api_ver
+    - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/jupyter:latest
+    - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/ngrok:latest
+    - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/api:latest
