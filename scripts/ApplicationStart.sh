@@ -5,7 +5,7 @@ docker-compose up -d
 echo "Testing service container "
 touch /home/ec2-user/container_log
 touch /home/ec2-user/start_log
-docker ps > /home/ec2-user/container_log
+sudo docker ps > /home/ec2-user/container_log
 containerNum=cat /home/ec2-user/container_log|wc -l
 for ((i=0;i<3;i++))
 do
