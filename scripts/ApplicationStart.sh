@@ -15,11 +15,6 @@ do
     break
 fi
   if [ $i == 2 ];then
-  docker rmi 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/api:latest
-  docker rmi redis:latest
-  docker rmi mysql:latest
-  docker rmi 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/jupyter:latest
-  docker rmi 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/ngrok:latest
   echo "deploy fail" > /home/ec2-user/start_log
 fi
 done

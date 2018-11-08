@@ -3,16 +3,27 @@ phases:
   pre_build:
     commands:
     - echo Logging in to Amazon ECR...
-    - $(aws ecr get-login --no-include-email --registry-ids 204065533127 --region ap-northeast-1)
+    - $(aws ecr get-login --no-include-email --region ap-northeast-1)
+    - URI=204065533127.dkr.ecr.ap-northeast-1.amazonaws.com
+    - VER=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+    - TAG=${VER:=latest}
   build:
     commands:
     - echo Build started on date
     - echo Building the Docker image...
-    - sh scripts/build.sh
+    - docker build -t $URI/jupyter:latest Chatbot_Line_cc103/dockerfile/dockerfile-jupyter2
+    - docker build -t $URI/ngrok:latest Chatbot_Line_cc103/dockerfile/dockerfile-ngrok
+    - docker build -t $URI/api:latest Chatbot_Dev_cc103/dockerfile/dockerfile-api
+    - docker tag $URI/jupyter:latest $URI/jupyter:$TAG
+    - docker tag $URI/ngrok:latest $URI/ngrok:$TAG
+    - docker tag $URI/api:latest $URI/api:$TAG  
   post_build:
     commands:
     - echo Build completed on date
     - echo Pushing the Docker image...
-    - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/jupyter:latest
-    - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/ngrok:latest
-    - docker push 204065533127.dkr.ecr.ap-northeast-1.amazonaws.com/api:latest
+    - docker push $URI/jupyter:latest
+    - docker push $URI/ngrok:latest
+    - docker push $URI/api:latest
+    - docker push $URI/jupyter:$TAG
+    - docker push $URI/ngrok:$TAG
+    - docker push $URI/api:$TAG
