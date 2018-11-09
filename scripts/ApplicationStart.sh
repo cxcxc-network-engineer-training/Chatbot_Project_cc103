@@ -18,3 +18,4 @@ fi
   echo "deploy fail" > /home/ec2-user/start_log
 fi
 done
+exit 0

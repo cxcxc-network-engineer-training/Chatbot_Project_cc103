@@ -10,10 +10,11 @@ files:
     destination: /home/ec2-user/deploy
 hooks:
   BeforeInstall:
-    - location: scripts/AfterInstall.sh
+    - location: scripts/BeforeInstall.sh
+    - location: scripts/gitsubmodule.sh
       timeout: 3000
   AfterInstall:
-    - location: scripts/BeforeInstall.sh
+    - location: scripts/AfterInstall.sh
       timeout: 3000
   ApplicationStart:
     - location: scripts/ApplicationStart.sh

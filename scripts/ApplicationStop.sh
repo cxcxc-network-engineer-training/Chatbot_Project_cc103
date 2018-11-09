@@ -8,3 +8,4 @@ rescan=cat /home/ec2-user/redeploy|wc -l
 if [ $rescan > 1 ];then
 docker-compose down --rmi all
 fi
+exit 0
