@@ -22,7 +22,7 @@ services:
       - GRANT_SUDO=yes
     ports:
       - "8880:8888"
- #     - "5001:5000"
+      - "5001:5000"
     depends_on:
       - db
     links:
@@ -53,21 +53,21 @@ services:
       - "8888:8888"
       - "80:5000"
     command: start-notebook.sh --NotebookApp.token=''
-#    command: python /home/jovyan/work/test.py
+#    command: python /home/jovyan/work/app.py
     volumes:
       - ./Chatbot_Line_cc103/code:/home/jovyan/work
 
-  ngrok-external-dns:
-    build: 
-      context: ./Chatbot_Line_cc103/dockerfile
-      dockerfile: dockerfile-ngrok
-    container_name: chatbot_ngrok
-    depends_on: 
+  nginx-proxy:
+    image: nginx
+    container_name: chatbot_nginx
+    depends_on:
       - jupyter-tutorial
     ports:
-      - "4040:4040"
-    command: ngrok http chatbot_line:5000
-
+      - "443:443"
+    volumes:
+      - ./docker_vol/nginx:/etc/nginx
+      - ./docker_vol/nginx-conf.d:/etc/nginx/conf.d
+      - ./docker_vol/cert-letsencrypt:/etc/pki/nginx
 
 #  jupyter-tutorial:
 #    build:
