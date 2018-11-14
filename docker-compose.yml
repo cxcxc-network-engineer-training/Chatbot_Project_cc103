@@ -43,7 +43,7 @@ services:
   jupyter-tutorial:
     build: 
       context: ./Chatbot_Line_cc103/dockerfile
-      dockerfile: dockerfile-jupyter
+      dockerfile: dockerfile-jupyter2
     container_name: chatbot_line
     depends_on: 
       - api
