@@ -1,13 +1,11 @@
 version: '3'
 services:
   db:
-    build: 
-      context: ./Chatbot_Dev_cc103/dockerfile
-      dockerfile: dockerfile-mysql
+    image: mysql:5.7 
     container_name: chatbot_db
     restart: always
-    ports:
-      - "3306:3306"
+#    ports:
+#      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=iii
     volumes:
@@ -22,52 +20,51 @@ services:
     user: root
     environment:
       - GRANT_SUDO=yes
-    ports:
-      - "8880:8888"
-      - "5001:5000"
+#    ports:
+#      - "8880:8888"
+#      - "5001:5000"
     depends_on:
       - db
     links:
       - db
     volumes:
       - ./Chatbot_Dev_cc103/code:/home/jovyan/work/
-#    command: python /home/jovyan/work/code.py
-    command: start-notebook.sh --NotebookApp.token=''
+    command: python /home/jovyan/work/code.py
+#    command: start-notebook.sh --NotebookApp.token=''
 
   redis:
-    build: 
-      context: ./Chatbot_Line_cc103/dockerfile
-      dockerfile: dockerfile-redis
+    image: redis:4.0.11
     container_name: chatbot_redis
-    ports:
-     - "6379:6379"
+#    ports:
+#      - "6379:6379"
     volumes:
-     - ./Chatbot_Line_cc103/redis/data:/data
-#    - ./Chatbot_Line/redis/redis.config:/usr/local/etc/redis/redis.conf
+      - ./Chatbot_Line_cc103/redis/data:/data
+#      - ./Chatbot_Line/redis/redis.config:/usr/local/etc/redis/redis.conf
   jupyter-tutorial:
     build: 
       context: ./Chatbot_Line_cc103/dockerfile
-      dockerfile: dockerfile-jupyter
-    container_name: chatbot_jupyter
+      dockerfile: dockerfile-jupyter2
+    container_name: chatbot_line
     depends_on: 
       - api
       - redis
-    ports:
-      - "8888:8888"
-      - "5000:5000"
-    command: start-notebook.sh --NotebookApp.token=''
-#    command: python /home/jovyan/work/test.py
+#    ports:
+#      - "8888:8888"
+#      - "80:5000"
+#    command: start-notebook.sh --NotebookApp.token=''
+    command: python /home/jovyan/work/app.py
     volumes:
-     - ./Chatbot_Line_cc103/code:/home/jovyan/work
-
-  ngrok-external-dns:
-    build: 
-      context: ./Chatbot_Line_cc103/dockerfile
-      dockerfile: dockerfile-ngrok
-    container_name: chatbot_ngrok
-    depends_on: 
+      - ./Chatbot_Line_cc103/code:/home/jovyan/work
+  nginx-proxy:
+    image: nginx
+    container_name: chatbot_nginx
+    depends_on:
       - jupyter-tutorial
     ports:
-      - "4040:4040"
-    command: ngrok http chatbot_jupyter:5000
+      - "443:443"
+    volumes:
+      - ./Chatbot_Line_cc103/docker_vol/nginx:/etc/nginx
+      - ./Chatbot_Line_cc103/docker_vol/nginx-conf.d:/etc/nginx/conf.d
+      - ./Chatbot_Line_cc103/docker_vol/cert-letsencrypt:/etc/pki/nginx
+
 
